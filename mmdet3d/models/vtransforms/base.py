@@ -34,8 +34,9 @@ class BaseTransform(nn.Module):
         dbound: Tuple[float, float, float],
         use_points='lidar', 
         depth_input='scalar',
-        height_expand=True,
-        add_depth_features=True,
+        height_expand=False, # height_expand=True, both these are set to false as i recieved 
+                             # RuntimeError: Given groups=1, weight of size [8, 1, 1, 1], expected input[6, 6, 256, 704] to have 1 channels, but got 6 channels instead
+        add_depth_features=False, #add_depth_features=True,
     ) -> None:
         super().__init__()
         self.in_channels = in_channels

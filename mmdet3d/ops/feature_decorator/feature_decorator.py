@@ -1,8 +1,8 @@
 
 import torch
 
-from . import feature_decorator_ext
-
+# from . import feature_decorator_ext
+from .feature_decorator import feature_decorator
 
 __all__ = ["feature_decorator"]
 

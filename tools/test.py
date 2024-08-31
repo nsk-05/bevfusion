@@ -1,5 +1,5 @@
 import argparse
-import copy
+import sys
 import os
 import warnings
 
@@ -11,6 +11,7 @@ from mmcv import Config, DictAction
 from mmcv.cnn import fuse_conv_bn
 from mmcv.parallel import MMDataParallel, MMDistributedDataParallel
 from mmcv.runner import get_dist_info, init_dist, load_checkpoint, wrap_fp16_model
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from mmdet3d.apis import single_gpu_test
 from mmdet3d.datasets import build_dataloader, build_dataset
 from mmdet3d.models import build_model
@@ -159,7 +160,7 @@ def main():
                 ds_cfg.pipeline = replace_ImageToTensor(ds_cfg.pipeline)
 
     # init distributed env first, since logger depends on the dist info.
-    distributed = True
+    distributed = False
 
     # set random seeds
     if args.seed is not None:
@@ -194,6 +195,7 @@ def main():
     if not distributed:
         model = MMDataParallel(model, device_ids=[0])
         outputs = single_gpu_test(model, data_loader)
+        # print("++++++++++++++++++++++++++++++++++++++++the testing is not distributed+++++++++++++++++++++++++++++++++++++++")
     else:
         model = MMDistributedDataParallel(
             model.cuda(),

@@ -41,7 +41,7 @@ def nuscenes_data_prep(
         # info_val_path = osp.join(root_path, f"{info_prefix}_infos_val.pkl")
         # nuscenes_converter.export_2d_annotation(root_path, info_train_path, version=version)
         # nuscenes_converter.export_2d_annotation(root_path, info_val_path, version=version)
-
+    print("================================dataset setting started=============================")
     create_groundtruth_database(
         dataset_name,
         root_path,
@@ -119,6 +119,9 @@ if __name__ == "__main__":
         )
     elif args.dataset == "nuscenes" and args.version == "v1.0-mini":
         train_version = f"{args.version}"
+        print("========================= mini version data preparing started ======================")
+        print(args.root_path)
+        print(args.out_dir)
         nuscenes_data_prep(
             root_path=args.root_path,
             info_prefix=args.extra_tag,
